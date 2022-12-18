@@ -49,5 +49,5 @@ for info in html.select(".catalog_item_wrapp > .inner_wrap"):
     print(f'Photo {photo}')
     print(f'Discount procent {discount}')
     print('---------------------------------------------------------------------------------------------------------')
-
+    
 

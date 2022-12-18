@@ -4,7 +4,7 @@ from DataBase_Wrapper import DB
 db = DB()
 app = Flask(__name__)
 
-db.create_database()
+db.create_table()
 
 @app.route("/")
 def hello_world():

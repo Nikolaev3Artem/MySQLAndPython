@@ -1,28 +1,25 @@
 import sqlite3
 class DB:
     def __init__(self):
-        pass
+        self.connection = sqlite3.connect('books.db')
+        self.cursor = self.connection.cursor()
 
 
-    def create_database(self):
-        connection = sqlite3.connect('books.db')
-        cursor = connection.cursor()
-        cursor.execute("""CREATE TABLE IF NOT EXISTS coin_info(
+    def create_table(self):
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS books(
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             NAME TEXT,
             AUTHOR TEXT,
             MAIN_PRICE FLOAT,
             DISCOUNT_PRICE FLOAT,
             DISCOUNT INT,
+            PRICE_CURRENCY TEXT, 
             PHOTO BLOB
             );
             """)
 
-    def create_table(self):
-        pass
-
     def add(self):
-        pass
+        self.cursor.execute(""" INSERT INTO """)
     
     def delete(self):
         pass
