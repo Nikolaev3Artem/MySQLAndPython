@@ -159,6 +159,30 @@ body{
                         margin-left: -125px;
                         letter-spacing: 1px;
                         color: #1afe49;
+                        .popuptext{
+                            visibility: hidden;
+                            width: 800px;
+                            height: 500px;
+                            background-color: #555;
+                            color: #fff;
+                            text-align: center;
+                            border-radius: 6px;
+                            padding: 8px 0;
+                            position: absolute;
+                            z-index: 1;
+                            bottom: 100%;
+                            left: -100%;
+                            margin-left: -80px;
+                            .table{
+                                th{
+                                    padding: 10px;
+                                }
+                                
+                                td{
+                                    padding: 10px;
+                                }
+                            }
+                        }
                     }
                 }
                 .svg-wrapper:hover .shape1,

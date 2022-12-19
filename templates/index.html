@@ -11,7 +11,6 @@
 </head>
 <body>
     <div class="container">
-
         <div class="header">
             <div class="info-table">
                 <div class="book-info">
@@ -51,7 +50,28 @@
                     <svg height="50" width="150" xmlns="http://www.w3.org/2000/svg">
                         <rect class="shape1" height="50" width="150" />
                         <rect class="shape2" height="50" width="150" />
-                        <div class="text">Показати все</div>
+                        <div class="text popup" onclick="myFunction()">Показати все
+                            <span class="popuptext" id="myPopup">
+                                <table class="table">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Author</th>
+                                        <th>Main Price</th>
+                                        <th>Discount Price</th>
+                                        <th>Discount</th>
+                                    </tr>
+                                    {% for book in books %}
+                                        <tr>
+                                            <td>{{ book[1][0:24] }}</td>
+                                            <td>{{ book[2] }}</td>
+                                            <td>{{ book[3] }}</td>
+                                            <td>{{ book[4] }}</td>
+                                            <td>{{ book[5] }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </span>
+                        </div>
                     </svg>
                 </div>
                 <div class="svg-wrapper">
@@ -98,5 +118,6 @@
             <div><a href="https://freelancehunt.com/freelancer/Artik88.html ">Freelance</a></div>
         </div>
     </div>
+    <script src="{{ url_for('static',filename='js/main.js') }}"></script>
 </body>
 </html>

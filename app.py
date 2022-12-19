@@ -6,10 +6,12 @@ app = Flask(__name__)
 
 db.create_table()
 
-@app.route("/")
+@app.route("/", methods = ['GET','POST'])
 def hello_world():
     book = db.first_book()
-    
+    books = db.return_all_database()
+    books.reverse()
+
     book_name = book[0][1]
     book_author = book[0][2]
     book_price = book[0][3]
@@ -32,7 +34,8 @@ def hello_world():
     book_discount_price = book_discount_price,
     book_currency_price = book_currency_price,
     book_currency_discount = book_currency_discount,
-    book_img = book_img
+    book_img = book_img,
+    books = books[0:10]
     )
 
 if __name__ == '__main__':
