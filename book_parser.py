@@ -54,7 +54,7 @@ for i in range(2,50):
         print(f'Discount procent {discount}')
         print('---------------------------------------------------------------------------------------------------------')
 
-        data = (str(title),str(author),str(price),str(discount_price),str(discount),str(price_currency))
+        data = (str(title),str(author),str(price),str(discount_price),str(discount),str(price_currency),str(photo))
         db.add(data = data)
         i += 1
 

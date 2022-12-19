@@ -3,8 +3,8 @@ class DB:
     def __init__(self):
         self.connection = sqlite3.connect('books.db', check_same_thread=False)
         self.cursor = self.connection.cursor()
-        self.data_insert = """ INSERT INTO books(NAME, AUTHOR, MAIN_PRICE, DISCOUNT_PRICE, DISCOUNT, PRICE_CURRENCY) VALUES(?,?,?,?,?,?)"""
-        self.first_id = """ SELECT * FROM books WHERE ID = 1 """
+        self.data_insert = """ INSERT INTO books(NAME, AUTHOR, MAIN_PRICE, DISCOUNT_PRICE, DISCOUNT, PRICE_CURRENCY, PHOTO) VALUES(?,?,?,?,?,?,?)"""
+        self.first_id = """ SELECT * FROM books WHERE ID = 2 """
 
     def create_table(self):
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS books(
@@ -14,7 +14,8 @@ class DB:
             MAIN_PRICE TEXT,
             DISCOUNT_PRICE TEXT,
             DISCOUNT TEXT,
-            PRICE_CURRENCY TEXT
+            PRICE_CURRENCY TEXT,
+            PHOTO TEXT
             );
             """)
 

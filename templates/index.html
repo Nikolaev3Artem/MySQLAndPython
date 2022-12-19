@@ -15,14 +15,19 @@
         <div class="header">
             <div class="info-table">
                 <div class="book-info">
-                    <div class="discount">{{ book_discount_procent }}</div>
                     <div>
-                        <div class="book_name">{{ book_name }}</div>
-                        <div class="author">{{ book_author }}</div>
-                    </div>
-                    <div>
-                        <div class="main_price">{{ book_price }} {{ book_currency_price }}</div>
-                        <div class="discount_price">290 грн</div>    
+                        <div>
+                            <img src="{{ book_img }}" alt="" title="{{ book_name }}">
+                        </div>
+                        <div class="discount">{{ book_discount_procent }}</div>
+                        <div>
+                            <div class="book_name">{{ book_name }}</div>
+                            <div class="author">{{ book_author }}</div>
+                        </div>
+                        <div>
+                            <div class="main_price">{{ book_price }} {{ book_currency_price }}</div>
+                            <div class="discount_price">{{ book_discount_price }}</div>    
+                        </div>
                     </div>
                 </div>
             </div>
