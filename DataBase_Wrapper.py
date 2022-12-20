@@ -1,12 +1,20 @@
+# importing sqlite to work with database
 import sqlite3
+
+# class for all database queries working for
 class DB:
+    # when database inited we have this code
     def __init__(self):
+        # adding connection to database
         self.connection = sqlite3.connect('books.db', check_same_thread=False)
+        # our cursor
         self.cursor = self.connection.cursor()
+        # data shortcods for sqlite
         self.data_insert_request = """ INSERT INTO books(NAME, AUTHOR, MAIN_PRICE, DISCOUNT_PRICE, DISCOUNT, PRICE_CURRENCY, PHOTO) VALUES(?,?,?,?,?,?,?)"""
         self.first_id_request = """ SELECT * FROM books WHERE ID = 2 """
         self.all_db_request = """SELECT * FROM books"""
 
+    # creating our table
     def create_table(self):
         self.cursor.execute("""CREATE TABLE IF NOT EXISTS books(
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,10 +28,12 @@ class DB:
             );
             """)
 
+    # inserting data in table, used from parser
     def add(self,data):
         self.cursor.execute(self.data_insert_request,data)
         self.connection.commit()
 
+    # returning all database to work with, used in main program to display it
     def return_all_database(self):
         self.cursor.execute(self.all_db_request)
         records = self.cursor.fetchall()
@@ -33,12 +43,7 @@ class DB:
             all_db.append(row)
         return(all_db)
 
-    def search(self):
-        pass
-
-    def show_all_database(self):
-        pass
-
+    # returning our first book from database to output it for our user
     def first_book(self):
         self.cursor.execute(self.first_id_request)
         rows = self.cursor.fetchall()

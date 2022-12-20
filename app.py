@@ -1,11 +1,15 @@
+# importing all that we need to main program
 from flask import Flask, render_template
 from DataBase_Wrapper import DB
 
+# initializing flask and dabatase
 db = DB()
 app = Flask(__name__)
 
-db.create_table()
+# creating table if need
+# db.create_table()
 
+# making rout to main page where we will send and receive data
 @app.route("/", methods = ['GET','POST'])
 def hello_world():
     book = db.first_book()
@@ -38,5 +42,6 @@ def hello_world():
     books = books[0:10]
     )
 
+# running our flask app
 if __name__ == '__main__':
     app.run(debug=True)
