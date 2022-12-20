@@ -7,7 +7,7 @@ db = DB()
 app = Flask(__name__)
 
 # creating table if need
-# db.create_table()
+db.create_table()
 
 # making rout to main page where we will send and receive data
 @app.route("/", methods = ['GET','POST'])

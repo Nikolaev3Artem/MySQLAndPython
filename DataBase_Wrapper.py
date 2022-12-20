@@ -10,7 +10,7 @@ class DB:
         # our cursor
         self.cursor = self.connection.cursor()
         # data shortcods for sqlite
-        self.data_insert_request = """ INSERT INTO books(NAME, AUTHOR, MAIN_PRICE, DISCOUNT_PRICE, DISCOUNT, PRICE_CURRENCY, PHOTO) VALUES(?,?,?,?,?,?,?)"""
+        self.data_insert_request = """ INSERT INTO books(NAME, AUTHOR, GENRE,MAIN_PRICE, DISCOUNT_PRICE, DISCOUNT, PRICE_CURRENCY, PHOTO) VALUES(?,?,?,?,?,?,?,?)"""
         self.first_id_request = """ SELECT * FROM books WHERE ID = 2 """
         self.all_db_request = """SELECT * FROM books"""
 
@@ -20,6 +20,7 @@ class DB:
             ID INTEGER PRIMARY KEY AUTOINCREMENT,
             NAME TEXT,
             AUTHOR TEXT,
+            GENRE TEXT,
             MAIN_PRICE TEXT,
             DISCOUNT_PRICE TEXT,
             DISCOUNT TEXT,

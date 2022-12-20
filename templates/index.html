@@ -31,14 +31,17 @@
                 </div>
             </div>
             <div class="inputs">
-                <label for="input">Назва</label>
-                <input type="text">
-                <label for="input">Жанр</label>
-                <input type="text">
-                <label for="input">Автор</label>
-                <input type="text">
-                <label for="input">Ціна</label>
-                <input type="text">
+                <form action="/" method="post">
+                    <label for="input">Назва</label>
+                    <input type="text" name="name">
+                    <label for="input">Жанр</label>
+                    <input type="text" name="genre">
+                    <label for="input">Автор</label>
+                    <input type="text" name="author">
+                    <label for="input">Ціна</label>
+                    <input type="text" name="price">
+                    <button>Пошук</button>
+                </form>
             </div>
         </div>
 
