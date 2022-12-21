@@ -14,6 +14,7 @@ db.create_table()
 def hello_world():
     # requesting from db book with 1st id
     book = db.first_book()
+    # taking data form form input and searching it in database
     if request.method == 'POST':
         name = request.form['name']
         book = db.find_book_for_name(name)

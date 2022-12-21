@@ -10,9 +10,13 @@ class DB:
         # our cursor
         self.cursor = self.connection.cursor()
         # data shortcods for sqlite
+        # inserting data in database
         self.data_insert_request = """ INSERT INTO books(NAME, AUTHOR, GENRE,MAIN_PRICE, DISCOUNT_PRICE, DISCOUNT, PRICE_CURRENCY, PHOTO) VALUES(?,?,?,?,?,?,?,?)"""
+        # selecting book with id 1 from database
         self.first_id_request = """ SELECT * FROM books WHERE ID = 1 """
+        # selecting all books from database
         self.all_db_request = """SELECT * FROM books"""
+        # searching book with name ? 
         self.find_for_name = """ SELECT * FROM books WHERE NAME = ? """
 
     # creating our table
@@ -56,6 +60,7 @@ class DB:
         
         return book_list
 
+    # funtion for finding book by name input str name output list of book data
     def find_book_for_name(self,name):
         self.cursor.execute(self.find_for_name , (name,))
         rows = self.cursor.fetchall()
