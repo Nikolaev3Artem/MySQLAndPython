@@ -40,8 +40,8 @@ body{
                         div:nth-child(1){
                             display: flex;
                             img{
-                                width: 81.5%;
-                                height: 81.5%;
+                                width: 75%;
+                                height: 75%;
                             }
                         }
                         div:nth-child(2){
@@ -159,8 +159,11 @@ body{
                         margin-left: -125px;
                         letter-spacing: 1px;
                         color: #1afe49;
+                        .popup{
+                            cursor: pointer;
+                        }
                         .popuptext{
-                            visibility: hidden;
+                            display: none;
                             width: 800px;
                             height: 500px;
                             background-color: #555;
@@ -173,6 +176,9 @@ body{
                             bottom: 100%;
                             left: -100%;
                             margin-left: -80px;
+                            .close{
+                                cursor: pointer;
+                            }
                             .table{
                                 th{
                                     padding: 10px;

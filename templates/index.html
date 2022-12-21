@@ -33,19 +33,10 @@
             <div class="inputs">
                 <form action="/" method="post">
                     <label for="input">Назва</label>
-                    <input type="text" name="name">
-                    <label for="input">Жанр</label>
-                    <input type="text" name="genre">
-                    <label for="input">Автор</label>
-                    <input type="text" name="author">
-                    <label for="input">Ціна</label>
-                    <input type="text" name="price">
-                    <button>Пошук</button>
+                    <input type="text" name="name"> 
                 </form>
             </div>
         </div>
-
-        <input type="text" class="search" placeholder="Пошук...">
 
         <div class="buttons">
             <div class="top-side">
@@ -55,6 +46,7 @@
                         <rect class="shape2" height="50" width="150" />
                         <div class="text popup" onclick="myFunction()">Показати все
                             <span class="popuptext" id="myPopup">
+                                <span class="close" onclick="hide()">&times;</span>
                                 <table class="table">
                                     <tr>
                                         <th>Name</th>
@@ -77,38 +69,15 @@
                         </div>
                     </svg>
                 </div>
-                <div class="svg-wrapper">
-                    <svg height="50" width="150" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="shape1" height="50" width="150" />
-                        <rect class="shape2" height="50" width="150" />
-                        <div class="text">Пошук книги</div>
-                    </svg>
-                </div>
-                
-            </div>
-            <div class="bottom-side">
-                <div class="svg-wrapper">
-                    <svg height="50" width="150" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="shape1" height="50" width="150" />
-                        <rect class="shape2" height="50" width="150" />
-                        <div class="text">Додати книгу</div>
-                    </svg>
-                </div>
-                <div class="svg-wrapper">
-                    <svg height="50" width="150" xmlns="http://www.w3.org/2000/svg">
-                        <rect class="shape1" height="50" width="150" />
-                        <rect class="shape2" height="50" width="150" />
-                        <div class="text">Додати фотографію</div>
-                    </svg>
-                </div>
+            
             </div>
             <div>Книгарня</div>
         </div>
 
         <div class="contacts">
             <div class="telegram_bot">
-                <a href="#">Telegram</a>
-                <a href="#">Bot</a>
+                <a href="https://t.me/PythonTelegramAiogram_bot">Telegram</a>
+                <a href="https://t.me/PythonTelegramAiogram_bot">Bot</a>
             </div>
             <div>
                 <a href="https://t.me/Itz_Maze">Telegram</a>

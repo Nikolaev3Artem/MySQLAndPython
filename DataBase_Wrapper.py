@@ -11,8 +11,9 @@ class DB:
         self.cursor = self.connection.cursor()
         # data shortcods for sqlite
         self.data_insert_request = """ INSERT INTO books(NAME, AUTHOR, GENRE,MAIN_PRICE, DISCOUNT_PRICE, DISCOUNT, PRICE_CURRENCY, PHOTO) VALUES(?,?,?,?,?,?,?,?)"""
-        self.first_id_request = """ SELECT * FROM books WHERE ID = 2 """
+        self.first_id_request = """ SELECT * FROM books WHERE ID = 1 """
         self.all_db_request = """SELECT * FROM books"""
+        self.find_for_name = """ SELECT * FROM books WHERE NAME = ? """
 
     # creating our table
     def create_table(self):
@@ -55,4 +56,13 @@ class DB:
         
         return book_list
 
+    def find_book_for_name(self,name):
+        self.cursor.execute(self.find_for_name , (name,))
+        rows = self.cursor.fetchall()
+        book_for_name_list = []
+
+        for row in rows:
+            book_for_name_list.append(row)
+        
+        return book_for_name_list
         

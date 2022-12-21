@@ -1,4 +1,6 @@
+var popup = document.getElementsByClassName("popuptext")[0];
+var span = document.getElementsByClassName("close")[0];
+
 function myFunction() {
-    var popup = document.getElementsByClassName("popuptext")[0];
-    popup.style.visibility = "visible";
+    popup.style.display ? popup.style.display = "none" : popup.style.display = "block";
 }
