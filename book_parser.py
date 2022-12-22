@@ -1,7 +1,6 @@
 # importing all that we will work with
 import requests
 from bs4 import BeautifulSoup as BS
-import sqlite3
 from DataBase_Wrapper import DB
 
 # initializing our db

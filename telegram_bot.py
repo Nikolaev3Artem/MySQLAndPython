@@ -10,6 +10,7 @@ db = DB()
 # adding our keyboards
 kb = ReplyKeyboardMarkup(resize_keyboard=True)
 books = ReplyKeyboardMarkup(resize_keyboard=True)
+search_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 
 # buttons for our keyboards
 button_1 = KeyboardButton("/help")
@@ -17,12 +18,15 @@ button_2 = KeyboardButton("/all_books")
 button_3 = KeyboardButton("/search_for_name")
 button_left = KeyboardButton("/page_back")
 button_right = KeyboardButton("/page_forward")
-
+find_button = KeyboardButton("/find")
+exit_button = KeyboardButton("/exit")
 # from variables constructing our keabord
 kb.add(button_1).insert(button_2)
 kb.add(button_3)
 books.add(button_left).insert(button_right)
-
+books.add(exit_button)
+search_kb.add(find_button)
+search_kb.add(exit_button)
 # list of our help command
 HELP_COMMAND = """  
 /help - список команд
@@ -60,23 +64,25 @@ async def all_books_command(message: types.Message):
 
 # function for page_back command
 @dp.message_handler(commands=['page_back'])
-async def all_books_command(message: types.Message):
+async def page_back_command(message: types.Message):
     await message.answer(text="Page -10 books",
                          reply_markup=books)
 
 # function for page_forward command
 @dp.message_handler(commands=['page_forward'])
-async def all_books_command(message: types.Message):
-    k = 0
-    while k < 10:
-        k += 1
-        await message.answer(text=f"{k} {s}",
-                            reply_markup=books)
+async def page_forward_command(message: types.Message):
+        await message.answer(text="Page +10 books",
+                         reply_markup=books)
 
 # function for search_for_name command
 @dp.message_handler(commands=['search_for_name'])
 async def search_for_name_command(message: types.Message):
-    await message.answer(text="Пошук книги по назві!")
+    await message.answer(text="Пошук книги по назві!", reply_markup=search_kb)
+
+# function for search_for_name command
+@dp.message_handler(commands=['exit'])
+async def exit_command(message: types.Message):
+    await message.answer(text="На головну сторінку", reply_markup=kb)
 
 # starting our bot
 if __name__ == "__main__":
