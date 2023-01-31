@@ -2,9 +2,14 @@
 import requests
 from bs4 import BeautifulSoup as BS
 from DataBase_Wrapper import DB
+import time
+import multiprocessing
+
+start = time.perf_counter()
 
 # initializing our db
 db = DB()
+db.create_table()
 
 # counting pages form 2 becouse on first page syntax is not simillar
 genre_list = [
@@ -28,88 +33,103 @@ genre_list = [
     {"genre":"sborniki-rasskazov","pages":3},
     {"genre":"folklor","pages":4}
 ]
-i = 0
-while i <= len(genre_list):
-    print(f"Genre list number:{i}")
-    pages = 2
-    for key,value in genre_list[i].items():
-        if key == "genre":
-            genre = value
-        elif key == "pages":
-            pages = value
-        for page in range(2,pages+1):
-            print(f"Page number:{page}")
+
+def parser(genre, pages):
+    start_genre = time.perf_counter()
+    for page in range(2,pages+1):
         # making get request to our page
-            r = requests.get(f"https://book24.ua/ua/catalog/{genre}/?PAGEN_1={page}")
-            # taking all html from url
-            html = BS(r.content, 'html.parser')
+        r = requests.get(f"https://book24.ua/ua/catalog/{genre}/?PAGEN_1={page}")
+        # taking all html from url
+        html = BS(r.content, 'html.parser')
 
-            # make cycle to take all books in our html
-            for info in html.select(".catalog_item_wrapp > .inner_wrap"):
+        # make cycle to take all books in our html
+        for info in html.select(".catalog_item_wrapp > .inner_wrap"):
+            # taking title for our book
+            title = info.select(".item-title > a > span")
+            title = title[0].text
+            # our price currency
+            price_currency = " грн."
+            # taking author of the book
+            try:
+                author = info.select(".item_info > .sa_block > .article_block > .font_sxs > a")
+                author = author[0].text
+            except:
+                author = "None"
 
-                # taking title for our book
-                title = info.select(".item-title > a > span")
-                title = title[0].text
-                # our price currency
-                price_currency = " грн."
+            # taking discount price of the book
+            try:
+                discount_price = info.select(".item_info > .cost > .price_matrix_wrapper > .prices-wrapper > .price > .values_wrapper > .price_value")
+                discount_price = discount_price[0].text
+            except:
+                discount_price = "None"
+                discount = "None"
 
-                # taking author of the book
+            # taking main price of the book
+            try:
+                price = info.select(".item_info > .cost > .price_matrix_wrapper > .price > .values_wrapper > .price_value")
+                price = price[0].text
+            except:
                 try:
-                    author = info.select(".item_info > .sa_block > .article_block > .font_sxs > a")
-                    author = author[0].text
-                except:
-                    author = "None"
-
-                # taking discount price of the book
-                try:
-                    discount_price = info.select(".item_info > .cost > .price_matrix_wrapper > .prices-wrapper > .price > .values_wrapper > .price_value")
-                    discount_price = discount_price[0].text
-                except:
-                    discount_price = "None"
-                    discount = "None"
-
-                # taking main price of the book
-                try:
-                    price = info.select(".item_info > .cost > .price_matrix_wrapper > .price > .values_wrapper > .price_value")
+                    price = info.select(".item_info > .cost > .price_matrix_wrapper > .prices-wrapper > .discount > .values_wrapper > .price_value")
                     price = price[0].text
                 except:
                     try:
-                        price = info.select(".item_info > .cost > .price_matrix_wrapper > .prices-wrapper > .discount > .values_wrapper > .price_value")
+                        price = info.select(".item_info > .price_matrix_wrapper > .price > .values_wrapper > .price_value")
                         price = price[0].text
                     except:
-                        try:
-                            price = info.select(".item_info > .price_matrix_wrapper > .price > .values_wrapper > .price_value")
-                            price = price[0].text
-                        except:
-                            price = "None"
+                        price = "None"
 
-                # taking procent of discout of the book
-                try:
-                    discount = info.select(".image_wrapper_block > .stickers > div > .sticker_sovetuem")
-                    discount = discount[0].text
-                except:
-                    discount = "None"
+            # taking procent of discout of the book
+            try:
+                discount = info.select(".image_wrapper_block > .stickers > div > .sticker_sovetuem")
+                discount = discount[0].text
+            except:
+                discount = "None"
+            # taking photo url of the book
+            try:
+                photo = info.select(".image_wrapper_block > .thumb > .section-gallery-wrapper > .section-gallery-wrapper__item > img")
+                photo = "https://book24.ua" + photo[0].attrs['data-src']
+            except:
+                photo = "None"
 
-                # taking photo url of the book
-                try:
-                    photo = info.select(".image_wrapper_block > .thumb > .section-gallery-wrapper > .section-gallery-wrapper__item > img")
-                    photo = "https://book24.ua" + photo[0].attrs['data-src']
-                except:
-                    photo = "None"
+            # display it in console if u need it
+            # print(f'Title: {title}')
+            # print(f'Author: {author}')
+            # print(f'Genre: {genre}')
+            # print(f'Price without discount: {price} + {price_currency}')
+            # print(f'Price with discount {discount_price} + {price_currency}')
+            # print(f'Photo {photo}')
+            # print(f'Discount procent {discount}')
+            # print('---------------------------------------------------------------------------------------------------------')
 
-                # display it in console if u need it
-                # print(f'Title: {title}')
-                # print(f'Author: {author}')
-                # print(f'Genre: {genre}')
-                # print(f'Price without discount: {price} + {price_currency}')
-                # print(f'Price with discount {discount_price} + {price_currency}')
-                # print(f'Photo {photo}')
-                # print(f'Discount procent {discount}')
-                # print('---------------------------------------------------------------------------------------------------------')
+            # all our data in variable data
+            data = (str(title),str(author),str(genre),str(price),str(discount_price),str(discount),str(price_currency),str(photo))
+            # inserting all book data in our database using function called add
+            db.add(data = data)
+            page += 1
 
-                # all our data in variable data
-                data = (str(title),str(author),str(genre),str(price),str(discount_price),str(discount),str(price_currency),str(photo))
-                # inserting all book data in our database using function called add
-                db.add(data = data)
-                page += 1
-    i += 1
+        finish_genre = time.perf_counter()
+        print(f"Finished in {round(finish_genre-start_genre),2} seconds(s)") 
+def main():
+    processes = []
+    i=0
+    pages = 2
+    while i < len(genre_list):
+        for key,value in genre_list[i].items():
+            if key == "genre":
+                genre = value
+            elif key == "pages":
+                pages = value
+        p = multiprocessing.Process(target=parser,args=[genre, pages])
+        p.start()
+        processes.append(p)
+        i+=1
+
+    for processe in processes:
+        processe.join()
+
+    finish = time.perf_counter()
+    print(f"Finished in {round(finish-start),2} seconds(s)") 
+
+if __name__ == '__main__':
+    main()
